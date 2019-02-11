@@ -15,7 +15,7 @@ Current implementation limitations:
 
 # Example
 
-See the [jenkinsfile-runner-fn-example] project for an example that is tested and works.(https://github.com/carlossg/jenkinsfile-runner-fn-example)
+See the [jenkinsfile-runner-fn-example](https://github.com/carlossg/jenkinsfile-runner-fn-example) project for an example that is tested and works.
 
 # Extending
 
