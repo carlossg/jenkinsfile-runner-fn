@@ -1,0 +1,9 @@
+schema_version: 20180708
+name: jenkinsfile-runner
+version: 0.0.1
+runtime: java
+build_image: fnproject/fn-java-fdk-build:jdk9-1.0.83
+run_image: fnproject/fn-java-fdk:jdk9-1.0.83
+cmd: org.csanchez.jenkins.fn.Handler::handleRequest
+format: http-stream
+timeout: 300
