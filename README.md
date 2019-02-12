@@ -8,13 +8,25 @@ This function allows `Jenkinsfile` execution without needing a persistent Jenkin
 
 # Current Status
 
-Running under fn fails
+Running under fn fails and no logs from `jenkinsfile-runnner` are sent to syslog
 
 ```
 $ cat src/test/resources/github.json | fn invoke jenkinsfile-runner jenkinsfile-runner
 {"message":"error receiving function response"}
 
 Fn: Error calling function: status 502
+```
+
+syslog:
+
+```
+...
+tmp dir: /tmp
+App root: /app
+Executing bootstrap: warDir: /app/jenkins, pluginsDir: /tmp/plugins, jenkinsfile: /tmp/workspace/Jenkinsfile
+Feb 12, 2019 7:44:05 AM org.eclipse.jetty.util.log.Log initialized
+INFO: Logging initialized @3615ms to org.eclipse.jetty.util.log.Slf4jLog
+Syslog connection closed; fd='17', client='AF_INET(172.17.0.1:41118)', local='AF_INET(0.0.0.0:514)'" PID=1 PROGRAM=syslog-ng SOURCE=s_local
 ```
 
 However running the docker image succeeds
