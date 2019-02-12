@@ -6,6 +6,22 @@ An [Fn Project](http://fnproject.io) function to run Jenkins pipelines. It will 
 
 This function allows `Jenkinsfile` execution without needing a persistent Jenkins master running in the same way as [Jenkins X Serverless](https://medium.com/@jdrawlings/serverless-jenkins-with-jenkins-x-9134cbfe6870), but using the Fn Project platform (and supported providers like [Oracle Functions](https://blogs.oracle.com/cloud-infrastructure/announcing-oracle-functions)) instead of Kubernetes.
 
+# Current Status
+
+Running under fn fails
+
+```
+$ cat src/test/resources/github.json | fn invoke jenkinsfile-runner jenkinsfile-runner
+{"message":"error receiving function response"}
+
+Fn: Error calling function: status 502
+```
+
+However running the docker image succeeds
+
+```
+cat src/test/resources/github.json | docker run --rm -i jenkinsfile-runner:0.0.1
+```
 
 # Limitations
 
