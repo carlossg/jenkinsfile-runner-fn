@@ -17,13 +17,13 @@ RUN apt-get update && apt-get install -y git && mkdir -p /function/app
 COPY --from=maven /usr/share/maven /usr/share/maven
 COPY --from=fdk /function /function
 COPY --from=jenkinsfile-runner /app /app
-COPY --from=jenkinsfile-runner /usr/share/jenkins/ref/plugins /tmp/plugins
+COPY --from=jenkinsfile-runner /usr/share/jenkins/ref/plugins /app/plugins
 COPY target/jenkinsfile-runner-fn-1.0-SNAPSHOT.jar /function/app/
 COPY src/main/resources/log.properties /app/log.properties
 
 RUN ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 # copied from fnproject/fn-java-fdk
-ENTRYPOINT [ "/usr/bin/java", "-Djava.util.logging.config.file=/app/log.properties", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:MaxRAMFraction=2", "-XX:-UsePerfData", "-XX:+UseSerialGC", "-Xshare:on", "-Djava.library.path=/function/runtime/lib", "-cp", "/function/app/*:/function/runtime/*", "com.fnproject.fn.runtime.EntryPoint"]
+ENTRYPOINT [ "/usr/bin/java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:MaxRAMFraction=2", "-XX:-UsePerfData", "-XX:+UseSerialGC", "-Xshare:on", "-Djava.library.path=/function/runtime/lib", "-cp", "/function/app/*:/function/runtime/*", "com.fnproject.fn.runtime.EntryPoint"]
 
 CMD ["org.csanchez.jenkins.fn.Handler::handleRequest"]

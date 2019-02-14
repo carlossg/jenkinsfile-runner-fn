@@ -26,10 +26,13 @@ package org.csanchez.jenkins.fn;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -139,10 +142,16 @@ public class Handler {
         System.setProperty("basedir", appRoot);
 
         try {
+            // link the plugins to the writable filesystem in tmp as they need to be extracted
+            Path pluginsPath = Paths.get(tmpDir, "plugins");
+            FileUtils.deleteDirectory(pluginsPath.toFile());
+            Files.createDirectories(pluginsPath);
+            linkFolder(Paths.get(appRoot, "plugins"), pluginsPath);
+
             // call jenkinsfile runner with the right parameters
             final Bootstrap bootstrap = new Bootstrap();
             bootstrap.warDir = Paths.get(appRoot, "jenkins").toFile();
-            bootstrap.pluginsDir = Paths.get(tmpDir, "plugins").toFile();
+            bootstrap.pluginsDir = pluginsPath.toFile();
             bootstrap.jenkinsfile = jenkinsfile;
             logger.info(String.format("Executing bootstrap: warDir: %s, pluginsDir: %s, jenkinsfile: %s",
                     bootstrap.warDir, bootstrap.pluginsDir, bootstrap.jenkinsfile));
@@ -154,4 +163,19 @@ public class Handler {
         }
     }
 
+    public void linkFolder(Path src, Path dest) throws IOException {
+        Files.walk(src).filter(source -> Files.isRegularFile(source))
+                .forEach(source -> link(source, dest.resolve(src.relativize(source))));
+    }
+
+    private void link(Path source, Path dest) {
+        try {
+            if (Files.exists(dest)) {
+                Files.delete(dest);
+            }
+            Files.createSymbolicLink(dest, source);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

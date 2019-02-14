@@ -6,4 +6,4 @@ build_image: fnproject/fn-java-fdk-build:jdk9-1.0.83
 run_image: fnproject/fn-java-fdk:jdk9-1.0.83
 cmd: org.csanchez.jenkins.fn.Handler::handleRequest
 format: http-stream
-timeout: 300
+memory: 1024
