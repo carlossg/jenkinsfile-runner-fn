@@ -11,6 +11,11 @@ This function allows `Jenkinsfile` execution without needing a persistent Jenkin
 The function is very similar to the one in [jenkinsfile-runner-lambda](https://github.com/carlossg/jenkinsfile-runner-lambda) with just a small change in the signature.
 The main difference between Lambda and Fn is in the packaging, as Lambda layers are limited in size and are expanded in `/opt` while Fn allows a custom `Dockerfile` where you can install whatever you want in a much easier way, just need to include the function code and entrypoint from `fnproject/fn-java-fdk`.
 
+# Oracle Functions
+
+[Oracle Functions](https://blogs.oracle.com/cloud-infrastructure/announcing-oracle-functions) is a cloud service providing Project Fn function execution (currently in limited availability).
+`jenkinsfile-runner-fn` function runs in Oracle Functions, with the caveat that it needs a syslog server running somewhere to get the logs (see below).
+
 # Limitations
 
 Current implementation limitations:
