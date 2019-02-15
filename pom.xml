@@ -131,6 +131,28 @@
               <overWriteSnapshots>true</overWriteSnapshots>
             </configuration>
           </execution>
+          <!-- get plugins under target/app/plugins -->
+          <execution>
+            <id>copy-plugins</id>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+	          <artifactItems>
+	            <artifactItem>
+	              <groupId>org.jenkins-ci.plugins.workflow</groupId>
+	              <artifactId>workflow-api</artifactId>
+	              <version>2.33</version>
+	              <type>hpi</type>
+	            </artifactItem>
+	          </artifactItems>
+              <outputDirectory>${project.build.directory}/app/plugins</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

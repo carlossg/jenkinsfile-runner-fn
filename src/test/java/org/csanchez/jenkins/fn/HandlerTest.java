@@ -43,7 +43,7 @@ public class HandlerTest {
     @Rule
     public final FnTestingRule testing = FnTestingRule.createDefault();
 
-//    @Ignore
+    @Ignore
     @Test
     public void test() throws Exception {
         File tmpDir = new File(System.getProperty("user.dir") + "/target/tmp");
