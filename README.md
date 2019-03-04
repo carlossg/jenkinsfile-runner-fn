@@ -1,4 +1,4 @@
-# Jenkinsfile Runner for Project Fn
+# Jenkinsfile Runner for Fn Project
 
 <img src="images/jenkins-fn.png" width="150">
 
@@ -6,14 +6,14 @@ An [Fn Project](http://fnproject.io) function to run Jenkins pipelines. It will 
 
 This function allows `Jenkinsfile` execution without needing a persistent Jenkins master running in the same way as [Jenkins X Serverless](https://medium.com/@jdrawlings/serverless-jenkins-with-jenkins-x-9134cbfe6870), but using the Fn Project platform (and supported providers like [Oracle Functions](https://blogs.oracle.com/cloud-infrastructure/announcing-oracle-functions)) instead of Kubernetes.
 
-# Project Fn vs AWS Lambda
+# Fn Project vs AWS Lambda
 
 The function is very similar to the one in [jenkinsfile-runner-lambda](https://github.com/carlossg/jenkinsfile-runner-lambda) with just a small change in the signature.
 The main difference between Lambda and Fn is in the packaging, as Lambda layers are limited in size and are expanded in `/opt` while Fn allows a custom `Dockerfile` where you can install whatever you want in a much easier way, just need to include the function code and entrypoint from `fnproject/fn-java-fdk`.
 
 # Oracle Functions
 
-[Oracle Functions](https://blogs.oracle.com/cloud-infrastructure/announcing-oracle-functions) is a cloud service providing Project Fn function execution (currently in limited availability).
+[Oracle Functions](https://blogs.oracle.com/cloud-infrastructure/announcing-oracle-functions) is a cloud service providing Fn Project function execution (currently in limited availability).
 `jenkinsfile-runner-fn` function runs in Oracle Functions, with the caveat that it needs a syslog server running somewhere to get the logs (see below).
 
 # Limitations
